@@ -1,0 +1,43 @@
+
+//暴力破解法
+#include <iostream>
+#include<vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n_size;
+		n_size = nums.size();
+		int i,sum_target=1,j;
+		for (i = 0; i < n_size - 1 && sum_target != 0; i++) {
+			for (j = i+1; j < n_size &&sum_target!=0; j++) {
+				if (nums[i] + nums[j] == target) return {i,j};
+			}// 如果i是零，那j
+			
+		}
+		return {i,j};
+    }
+};
+
+//哈希法
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans;
+       unordered_map<int,int>hashmap;  //声明变量
+       for(int i=0;i<nums.size();i++){
+           if(hashmap[target-nums[i]]  
+          &&hashmap[target-nums[i]]!=i+1){ // 哈希 给定关键字可以直接取出地址 一次循环，一边插入一边查找
+          //防止利用同个元素
+               ans.push_back(i);  
+               ans.push_back(hashmap[target-nums[i]]-1);
+               return ans;
+           }
+        hashmap[nums[i]]=i+1;
+        //将hash表对应下标＋1，防止处理下标为0的情况
+       }
+      
+       return ans;
+    }
+};
